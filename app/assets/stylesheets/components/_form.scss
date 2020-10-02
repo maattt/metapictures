@@ -1,0 +1,20 @@
+@import "dropzone/dist/min/dropzone.min.css";
+@import "dropzone/dist/min/basic.min.css";
+
+form {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.dropzone {
+  height: 40vh;
+  width: 90%;
+  border: 2px dashed rgba(0,0,0,0.1);
+
+  &:hover {
+    background: rgba(0,0,0,0.05)
+  }
+}
