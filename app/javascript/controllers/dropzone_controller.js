@@ -16,7 +16,7 @@ export default class extends Controller {
     this.dropZone = createDropZone(this);
     this.hideFileInput();
     this.bindEvents();
-    Dropzone.autoDiscover = false; // necessary quirk for Dropzone error in console
+    Dropzone.autoDiscover = false;
   }
 
   // Private
@@ -146,7 +146,7 @@ function createDropZone(controller) {
   return new Dropzone(controller.element, {
     url: controller.url,
     headers: controller.headers,
-    maxFiles: controller.maxFiles,
+    // maxFiles: controller.maxFiles,
     // maxFilesize: controller.maxFileSize,
     acceptedFiles: controller.acceptedFiles,
     addRemoveLinks: controller.addRemoveLinks,

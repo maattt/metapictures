@@ -1,7 +1,7 @@
 require 'exifr/jpeg'
 
 class PicturesController < ApplicationController
-  before_action :set_picture, only: [:show, :edit, :update, :destroy]
+  before_action :set_picture, only: [:show, :destroy]
 
   # GET /pictures
   # GET /pictures.json
@@ -19,38 +19,17 @@ class PicturesController < ApplicationController
     @picture = Picture.new
   end
 
-  # GET /pictures/1/edit
-  def edit
-  end
-
   # POST /pictures
   # POST /pictures.json
   def create
-    @picture = Picture.new(picture_params)
-
-    respond_to do |format|
-      if @picture.save
-        format.html { redirect_to @picture, notice: 'Picture was successfully created.' }
-        format.json { render :show, status: :created, location: @picture }
-      else
-        format.html { render :new }
-        format.json { render json: @picture.errors, status: :unprocessable_entity }
+    params[:files].each do |file|
+      picture = Picture.new(file: file)
+      if picture.save
+        exifs = EXIFR::JPEG.new(picture.file_path)
+        picture.update(model: exifs.model, shooting_date: exifs.date_time, exposure_time: exifs.exposure_time, f_number: exifs.f_number, focal_length: exifs.focal_length, gps_longitude: (exifs.gps ? exifs.gps.longitude : nil), gps_latitude: (exifs.gps ? exifs.gps.gps_latitude : nil))
       end
     end
-  end
-
-  # PATCH/PUT /pictures/1
-  # PATCH/PUT /pictures/1.json
-  def update
-    respond_to do |format|
-      if @picture.update(picture_params)
-        format.html { redirect_to @picture, notice: 'Picture was successfully updated.' }
-        format.json { render :show, status: :ok, location: @picture }
-      else
-        format.html { render :edit }
-        format.json { render json: @picture.errors, status: :unprocessable_entity }
-      end
-    end
+    redirect_to pictures_path
   end
 
   # DELETE /pictures/1
@@ -67,10 +46,5 @@ class PicturesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_picture
       @picture = Picture.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def picture_params
-      params.fetch(:picture, {}).permit(:file)
     end
 end

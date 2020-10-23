@@ -1,10 +1,32 @@
 <%= image_tag @picture.file.variant(resize_to_limit: [400, 400]) %>
 
 <h3>EXIFS :</h3>
-<ul>
-  <li><strong>datetime: </strong><%= @picture.exifs.date_time %></li>
-  <li><strong>focal: </strong><%= @picture.exifs.focal_length.to_i %></li>
-  <li>...</li>
-</ul>
+
+<table>
+  <tr>
+    <th>Date de prise de vue</th>
+    <td><%= @picture.shooting_date %></td>
+  </tr>
+  <tr>
+    <th>Durée d'exposition</th>
+    <td><%= @picture.exposure_time %></td>
+  </tr>
+  <tr>
+    <th>f_number</th>
+    <td><%= @picture.f_number %></td>
+  </tr>
+  <tr>
+    <th>Longueur focale</th>
+    <td><%= @picture.focal_length.to_i.to_s %></td>
+  </tr>
+  <tr>
+    <th>GPS latitude</th>
+    <td><%= @picture.gps_latitude %></td>
+  </tr>
+  <tr>
+    <th>GPS longitude</th>
+    <td><%= @picture.gps_longitude %></td>
+  </tr>
+</table>
 
 <%= link_to "Back", pictures_path %>
