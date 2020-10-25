@@ -34,11 +34,15 @@ ActiveRecord::Schema.define(version: 2020_09_04_141228) do
   end
 
   create_table "pictures", force: :cascade do |t|
+    t.string "make"
     t.string "model"
+    t.string "lens_make"
+    t.string "lens_model"
     t.datetime "shooting_date"
     t.string "exposure_time"
     t.string "f_number"
     t.string "focal_length"
+    t.string "iso_speed_ratings"
     t.string "gps_latitude"
     t.string "gps_longitude"
     t.datetime "created_at", precision: 6, null: false

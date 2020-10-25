@@ -8,25 +8,33 @@
     <td><%= @picture.shooting_date %></td>
   </tr>
   <tr>
+    <th>Modèle</th>
+    <td><%= @picture.model %></td>
+  </tr>
+  <tr>
     <th>Durée d'exposition</th>
     <td><%= @picture.exposure_time %></td>
   </tr>
   <tr>
-    <th>f_number</th>
-    <td><%= @picture.f_number %></td>
+    <th>Numéro F</th>
+    <td>f/<%= human_read(@picture.f_number) %></td>
   </tr>
   <tr>
     <th>Longueur focale</th>
-    <td><%= @picture.focal_length.to_i.to_s %></td>
+    <td><%= human_read(@picture.focal_length) %> mm</td>
   </tr>
-  <tr>
-    <th>GPS latitude</th>
-    <td><%= @picture.gps_latitude %></td>
-  </tr>
-  <tr>
-    <th>GPS longitude</th>
-    <td><%= @picture.gps_longitude %></td>
-  </tr>
+  <% if @picture.gps_latitude %>
+    <tr>
+      <th>GPS latitude</th>
+      <td><%= @picture.gps_latitude %></td>
+    </tr>
+  <% end %>
+  <% if @picture.gps_longitude %>
+    <tr>
+      <th>GPS longitude</th>
+      <td><%= @picture.gps_longitude %></td>
+    </tr>
+  <% end %>
 </table>
 
 <%= link_to "Back", pictures_path %>

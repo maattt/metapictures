@@ -3,7 +3,19 @@
 <table>
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th>#</th>
+      <th></th>
+      <th>Date de prise de vue</th>
+      <th>Marque</th>
+      <th>Modèle</th>
+      <th>Marque de l'objectif</th>
+      <th>Objectif</th>
+      <th>Durée d'exposition</th>
+      <th>Numéro F</th>
+      <th>Longueur focale</th>
+      <th>ISO</th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -11,6 +23,16 @@
     <% @pictures.each do |picture| %>
       <tr>
         <td><%= "##{picture.id}" %></td>
+        <td><%= image_tag picture.file.variant(resize_to_limit: [120, 120]) %></td>
+        <td><%= picture.shooting_date %></td>
+        <td><%= picture.make %></td>
+        <td><%= picture.model %></td>
+        <td><%= picture.lens_make %></td>
+        <td><%= picture.lens_model %></td>
+        <td><%= picture.exposure_time %></td>
+        <td><%= human_read picture.f_number %></td>
+        <td><%= human_read picture.focal_length %></td>
+        <td><%= picture.iso_speed_ratings %></td>
         <td><%= link_to 'Show', picture %></td>
         <td><%= link_to 'Destroy', picture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

@@ -26,7 +26,7 @@ class PicturesController < ApplicationController
       picture = Picture.new(file: file)
       if picture.save
         exifs = EXIFR::JPEG.new(picture.file_path)
-        picture.update(model: exifs.model, shooting_date: exifs.date_time, exposure_time: exifs.exposure_time, f_number: exifs.f_number, focal_length: exifs.focal_length, gps_longitude: (exifs.gps ? exifs.gps.longitude : nil), gps_latitude: (exifs.gps ? exifs.gps.gps_latitude : nil))
+        picture.update(make: exifs.make, model: exifs.model, lens_make: exifs.lens_make, lens_model: exifs.lens_model, shooting_date: exifs.date_time_original, exposure_time: exifs.exposure_time, f_number: exifs.f_number, focal_length: exifs.focal_length, iso_speed_ratings: exifs.iso_speed_ratings, gps_longitude: (exifs.gps ? exifs.gps.longitude : nil), gps_latitude: (exifs.gps ? exifs.gps.latitude : nil))
       end
     end
     redirect_to pictures_path
